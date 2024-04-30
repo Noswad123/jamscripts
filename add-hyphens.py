@@ -1,3 +1,4 @@
+#  py ~/Projects/jamscripts/add-hyphens.py "$(obpath "Syllabus/Academics/Bioloy/Bioloy.md")" 
 import sys
 import os
 
@@ -20,4 +21,5 @@ if __name__ == "__main__":
         sys.exit(1)
 
     filename = sys.argv[1]
+    print(f"File path received: {filename}")
     add_hyphen_to_file(filename)
