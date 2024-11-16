@@ -2,7 +2,6 @@ import sys
 import os
 
 def alphabetize(file_path):
-    # Check if the file exists
     if not os.path.isfile(file_path):
         print(f"Error: File '{file_path}' not found!")
         sys.exit(1)
@@ -33,7 +32,7 @@ def alphabetize(file_path):
 if __name__ == "__main__":
     # Check if at least a file is provided as an argument
     if len(sys.argv) < 2:
-        print("Usage: python3 script.py filename")
+        print("Usage: python3 alphabetize.py filename")
         sys.exit(1)
 
     filename = sys.argv[1]
