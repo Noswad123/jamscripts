@@ -1,17 +1,15 @@
 #!/bin/zsh
 
-# Declare associative array
 typeset -A files
 
-# Base directory
 darkness="/Users/jdawson/Projects/darkness"
 
-# Populate the array
 files[tmux]="$darkness/Lifelong Learner/Curriculum/Computer Science/Software Development/Computer Tools/tmux/tmux Commands.md"
 files[vim]="$darkness/Lifelong Learner/Curriculum/Computer Science/Software Development/Computer Tools/VIM/Vim Documentation/Vim Commands.md"
 files[git]="$darkness/Lifelong Learner/Curriculum/Computer Science/Software Development/Computer Tools/Git/Git Documentation/Git Cheatsheet.md"
+files[jq]="$darkness/Lifelong Learner/Curriculum/Computer Science/Software Development/Programming Language Theory/Programming Languages/Bash/Bash Commands/JQ Cheatsheet.md"
+files[sed]="$darkness/Lifelong Learner/Curriculum/Computer Science/Software Development/Programming Language Theory/Programming Languages/Bash/Bash Commands/Sed Cheatsheet.md"
 
-# Initialize variables for jless and json property
 jless_flag='false'
 json_property=''
 choice=''
@@ -20,7 +18,7 @@ choice=''
 while [[ $# -gt 0 ]]; do
     case "$1" in
         -j)
-          jless_flag='true'
+            jless_flag='true'
             shift
             if [[ "$1" && !("$1" =~ ^-) ]]; then
                 json_property="$1"
@@ -28,9 +26,9 @@ while [[ $# -gt 0 ]]; do
             fi
             ;;
         *)
-            if [[ -z "$choice" ]]; then  # Only set choice if it hasn't been set yet
+            if [[ -z "$choice" ]]; then
                 choice="$1"
-                shift  # Move past the choice
+                shift
             else
                 shift
             fi
@@ -40,7 +38,6 @@ done
 
 echo "Arguments parsed: -j $jless_flag, json_property: $json_property, Choice: $choice"
 
-# Main script logic
 if [[ -n "${files[$choice]}" ]]; then
     if head -1 "${files[$choice]}" | grep -qx '```json'; then
         content=$(sed '1d;$d' "${files[$choice]}")
