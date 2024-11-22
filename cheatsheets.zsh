@@ -11,6 +11,8 @@ files[jq]="$darkness/Lifelong Learner/Curriculum/Computer Science/Software Devel
 files[sed]="$darkness/Lifelong Learner/Curriculum/Computer Science/Software Development/Programming Language Theory/Programming Languages/Bash/Bash Commands/Sed Cheatsheet.md"
 
 jless_flag='false'
+verbose_flag='false'
+edit_flag='false'
 json_property=''
 choice=''
 
@@ -25,6 +27,14 @@ while [[ $# -gt 0 ]]; do
                 shift
             fi
             ;;
+        -e)
+            edit_flag='true'
+            shift
+            ;;
+        -v)
+            verbose_flag='true'
+            shift
+            ;;
         *)
             if [[ -z "$choice" ]]; then
                 choice="$1"
@@ -36,9 +46,29 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-echo "Arguments parsed: -j $jless_flag, json_property: $json_property, Choice: $choice"
+if [[ "$verbose_flag" == 'true' ]]; then
+  echo "Arguments parsed: -j $jless_flag, -e $edit_flag, json_property: $json_property, Choice: $choice"
+fi
+
+if [[ -z $choice ]]; then
+  choice=$(for k in "${(@k)files}"; do echo $k; done | fzf --prompt="Select a cheatsheet:")
+fi
+
+if [[ $edit_flag == 'true' ]]; then
+  nvim "${files[$choice]}"
+  exit
+fi
 
 if [[ -n "${files[$choice]}" ]]; then
+  content=$(awk '
+    BEGIN { print_block = 1 }
+      /^---$/ { 
+        print_block = 1 - print_block;  # Toggle print_block
+        next;  # Skip the line containing ---
+      }
+    print_block { print }
+    ' "${files[$choice]}")
+
     if head -1 "${files[$choice]}" | grep -qx '```json'; then
         content=$(sed '1d;$d' "${files[$choice]}")
     else
