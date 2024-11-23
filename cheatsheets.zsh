@@ -69,13 +69,19 @@ if [[ -n "${files[$choice]}" ]]; then
     print_block { print }
     ' "${files[$choice]}")
 
-    if head -1 "${files[$choice]}" | grep -qx '```json'; then
-        content=$(sed '1d;$d' "${files[$choice]}")
-    else
-        content=$(cat "${files[$choice]}")
+    if [[ "$verbose_flag" == 'true' ]]; then
+      echo "after awk..."
+      echo $content
     fi
 
-    echo "Content prepared for display or processing..."
+    if  echo $content | grep -qx '```json'; then
+        content=$(echo "$content" | sed '1d;$d')
+    fi
+
+    if [[ "$verbose_flag" == 'true' ]]; then
+      echo "Content prepared for display or processing..."
+      echo $content
+    fi
 
     if [[ -n "$json_property" ]]; then
         # Use jless to extract the specified JSON property if provided
