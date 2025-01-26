@@ -5,7 +5,7 @@ typeset -A files
 darkness="/Users/jdawson/Projects/darkness"
 
 files[tmux]="$darkness/Lifelong Learner/Curriculum/Computer Science/Software Development/Computer Tools/tmux/tmux Commands.md"
-files[vim]="$darkness/Lifelong Learner/Curriculum/Computer Science/Software Development/Computer Tools/VIM/Vim Documentation/Vim Commands.md"
+files[vim]="$darkness/Lifelong Learner/Curriculum/Computer Science/Software Development/Computer Tools/VIM/Vim Documentation/Vim Cheatsheet.md"
 files[git]="$darkness/Lifelong Learner/Curriculum/Computer Science/Software Development/Computer Tools/Git/Git Documentation/Git Cheatsheet.md"
 files[jq]="$darkness/Lifelong Learner/Curriculum/Computer Science/Software Development/Programming Language Theory/Programming Languages/Bash/Bash Commands/JQ Cheatsheet.md"
 files[sed]="$darkness/Lifelong Learner/Curriculum/Computer Science/Software Development/Programming Language Theory/Programming Languages/Bash/Bash Commands/Sed Cheatsheet.md"
